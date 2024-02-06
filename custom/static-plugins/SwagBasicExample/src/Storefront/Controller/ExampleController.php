@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Swag\BasicExample\Storefront\Controller;
 
@@ -19,7 +20,7 @@ class ExampleController extends StorefrontController
     public function showExample(Request $request, SalesChannelContext $context): Response
     {
         return $this->renderStorefront('@SwagBasicExample/storefront/page/example.html.twig', [
-            'example' => 'Hello world'
+            'example' => 'Hello world',
         ]);
     }
 }

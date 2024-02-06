@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Swag\BasicExample\Subscriber;
 
+use Shopware\Core\Content\Product\ProductEvents;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Shopware\Core\Content\Product\ProductEvents;
 
 class MySubscriber implements EventSubscriberInterface
 {
@@ -12,11 +13,11 @@ class MySubscriber implements EventSubscriberInterface
     {
         // Return the events to listen to as array like this:  <event to listen to> => <method to execute>
         return [
-            ProductEvents::PRODUCT_LOADED_EVENT => 'onProductsLoaded'
+            ProductEvents::PRODUCT_LOADED_EVENT => 'onProductsLoaded',
         ];
     }
 
-    public function onProductsLoaded(EntityLoadedEvent $event)
+    public function onProductsLoaded(EntityLoadedEvent $event): void
     {
         // Do something
         // E.g. work with the loaded entities: $event->getEntities()

@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Swag\BasicExample\Core\Content\Example\SalesChannel;
 
@@ -11,8 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(defaults: ['_routeScope' => ['store-api']])]
 class ExampleRoute extends AbstractExampleRoute
 {
-    public function __construct(private readonly EntityRepository $productRepository)
-    {
+    public function __construct(
+        private readonly EntityRepository $productRepository
+    ) {
     }
 
     public function getDecorated(): AbstractExampleRoute

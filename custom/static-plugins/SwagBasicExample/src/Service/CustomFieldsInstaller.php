@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Swag\BasicExample\Service;
 
@@ -19,8 +20,8 @@ class CustomFieldsInstaller
             'label' => [
                 'en-GB' => 'English custom field set label',
                 'de-DE' => 'German custom field set label',
-                Defaults::LANGUAGE_SYSTEM => 'Mention the fallback label here'
-            ]
+                Defaults::LANGUAGE_SYSTEM => 'Mention the fallback label here',
+            ],
         ],
         'customFields' => [
             [
@@ -30,12 +31,12 @@ class CustomFieldsInstaller
                     'label' => [
                         'en-GB' => 'English custom field label',
                         'de-DE' => 'German custom field label',
-                        Defaults::LANGUAGE_SYSTEM => 'Mention the fallback label here'
+                        Defaults::LANGUAGE_SYSTEM => 'Mention the fallback label here',
                     ],
-                    'customFieldPosition' => 1
-                ]
-            ]
-        ]
+                    'customFieldPosition' => 1,
+                ],
+            ],
+        ],
     ];
 
     public function __construct(
@@ -47,7 +48,7 @@ class CustomFieldsInstaller
     public function install(Context $context): void
     {
         $this->customFieldSetRepository->upsert([
-            self::CUSTOM_FIELDSET
+            self::CUSTOM_FIELDSET,
         ], $context);
     }
 

@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Swag\BasicExample\Core\Content\TestTable;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
+use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class TestTableDefinition extends EntityDefinition
 {
@@ -33,9 +34,9 @@ class TestTableDefinition extends EntityDefinition
     {
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
-            (new StringField('name', 'name')),
-            (new StringField('description', 'description')),
-            (new BoolField('active', 'active'))
+            new StringField('name', 'name'),
+            new StringField('description', 'description'),
+            new BoolField('active', 'active'),
         ]);
     }
 }
