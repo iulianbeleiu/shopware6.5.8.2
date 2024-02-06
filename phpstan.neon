@@ -1,0 +1,9 @@
+parameters:
+    phpVersion: 80200
+    level: 8
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
+    paths:
+        - custom/static-plugins
