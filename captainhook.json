@@ -1,0 +1,57 @@
+{
+    "config": {
+        "verbosity": "debug",
+        "ansi-colors": true,
+        "run-mode": "docker",
+        "run-exec": "docker exec phi_shop",
+        "run-path": "vendor/bin/captainhook",
+        "git-directory": ".git"
+    },
+    "commit-msg": {
+        "enabled": false,
+        "actions": [
+            {
+                "action": "\\CaptainHook\\App\\Hook\\Message\\Action\\Rules",
+                "options": [
+                    [
+                        "\\CaptainHook\\App\\Hook\\Message\\Rule\\LimitSubjectLength",
+                        [
+                            60
+                        ]
+                    ],
+                    [
+                        "\\CaptainHook\\App\\Hook\\Message\\Rule\\LimitBodyLineLength",
+                        [
+                            72
+                        ]
+                    ]
+                ],
+                "conditions": []
+            },
+            {
+                "action": "vendor/bin/ecs check"
+            },
+            {
+                "action": "vendor/bin/phpstan"
+            }
+        ]
+    },
+    "pre-commit": {
+        "enabled": false,
+        "actions": [
+            {
+                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+                "options": [],
+                "conditions": []
+            }
+        ]
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": [
+            {
+                "action": "vendor/bin/phpunit --testdox"
+            }
+        ]
+    }
+}

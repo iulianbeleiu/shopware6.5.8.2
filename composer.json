@@ -65,6 +65,7 @@
     }
   },
   "require-dev": {
+    "captainhook/captainhook": "^5.21",
     "kubawerlos/php-cs-fixer-custom-fixers": "^3.20",
     "phpstan/phpstan": "^1.10",
     "symplify/easy-coding-standard": "^12.1"
