@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  shop:
+    container_name: shop
+    image: dockware/dev:6.5.8.2
+    ports:
+      - "80:80" # apache2
+      - "443:443" # apache2
+      - "22:22" # ssh
+      - "8888:8888" # watch admin
+      - "9999:9999" # watch storefront
+      - "9998:9998" # watch storefront proxy
+    volumes:
+      - ".:/var/www/html/"
+      - "/var/www/html/var/cache"
+    networks:
+      - web
+    environment:
+      - NODE_VERSION=18
+      - XDEBUG_ENABLED=0
+      - PHP_VERSION=8.2
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: database
+    networks:
+      - web
+    ports:
+      - "3306:3306"
+    volumes:
+      - "database:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_DATABASE: shopware
+
+volumes:
+  nfsmount:
+    driver: local
+  database:
+    driver: local
+
+networks:
+  web:
+    external: false
