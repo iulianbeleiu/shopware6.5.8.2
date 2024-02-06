@@ -8,6 +8,7 @@
     "shopware/dev-tools": "^1.3",
     "shopware/elasticsearch": "*",
     "shopware/storefront": "*",
+    "swag-basic-example/swag-basic-example": "^1.0",
     "symfony/flex": "~2"
   },
   "repositories": [

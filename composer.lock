@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0363ace464db24c9ed9053e9c8315c2",
+    "content-hash": "de168dcc4ff36af55c4f5deee8184ff7",
     "packages": [
         {
             "name": "async-aws/core",
@@ -8001,6 +8001,44 @@
                 "source": "https://github.com/squirrelphp/twig-php-syntax/tree/v1.7"
             },
             "time": "2021-11-29T23:24:13+00:00"
+        },
+        {
+            "name": "swag-basic-example/swag-basic-example",
+            "version": "1.0.1",
+            "dist": {
+                "type": "path",
+                "url": "custom/static-plugins/SwagBasicExample",
+                "reference": "7bcc1f77592af9eab50663ac22901a3db69fbf2a"
+            },
+            "require": {
+                "shopware/core": "6.5.*"
+            },
+            "type": "shopware-platform-plugin",
+            "extra": {
+                "shopware-plugin-class": "Swag\\BasicExample\\SwagBasicExample",
+                "label": {
+                    "de-DE": "Basic Example plugin",
+                    "en-GB": "Basic Example plugin"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Swag\\BasicExample\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Swag\\BasicExample\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Basic Example plugin",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/asset",
