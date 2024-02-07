@@ -41,7 +41,7 @@ class OrderListCommand extends Command
             return (int) $numberOfDays;
         });
 
-        $filters = ['numberOfDays' => $numberOfDays];
+        $filters = ['numberOfDays' => (int) $numberOfDays];
         $orders = $this->orderService->getOrders($filters, Context::createDefaultContext());
 
         $this->orderPrinter->print($orders, $output);
