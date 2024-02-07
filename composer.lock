@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cdeb4defb2b511bcd1f1420859d48d2",
+    "content-hash": "0e31e1d79ba6ca3126063214ab75861a",
     "packages": [
         {
             "name": "async-aws/core",
@@ -8003,38 +8003,38 @@
             "time": "2021-11-29T23:24:13+00:00"
         },
         {
-            "name": "swag-basic-example/swag-basic-example",
-            "version": "1.0.1",
+            "name": "swag-order/swag-order",
+            "version": "1.0.0",
             "dist": {
                 "type": "path",
-                "url": "custom/static-plugins/SwagBasicExample",
-                "reference": "7bcc1f77592af9eab50663ac22901a3db69fbf2a"
+                "url": "custom/static-plugins/SwagOrder",
+                "reference": "5546bdb8656274df399e8868319a89969c673a75"
             },
             "require": {
                 "shopware/core": "6.5.*"
             },
             "type": "shopware-platform-plugin",
             "extra": {
-                "shopware-plugin-class": "Swag\\BasicExample\\SwagBasicExample",
+                "shopware-plugin-class": "Swag\\Order\\SwagOrder",
                 "label": {
-                    "de-DE": "Basic Example plugin",
-                    "en-GB": "Basic Example plugin"
+                    "de-DE": "Order plugin",
+                    "en-GB": "Order plugin"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Swag\\BasicExample\\": "src/"
+                    "Swag\\Order\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Swag\\BasicExample\\Tests\\": "tests/"
+                    "Swag\\Order\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "Basic Example plugin",
+            "description": "Order plugin",
             "transport-options": {
                 "symlink": true,
                 "relative": true
