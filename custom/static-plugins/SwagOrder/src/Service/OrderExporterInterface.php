@@ -2,13 +2,13 @@
 
 namespace Swag\Order\Service;
 
+use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 
 interface OrderExporterInterface
 {
     public function export(
         int $numberOfDays,
         Context $context
-    ): EntitySearchResult;
+    ): OrderCollection;
 }

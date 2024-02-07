@@ -2,13 +2,13 @@
 
 namespace Swag\Order\Service;
 
-use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use Shopware\Core\Checkout\Order\OrderCollection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 interface OrderPrinterInterface
 {
     public function print(
-        EntitySearchResult $orders,
+        OrderCollection $orders,
         OutputInterface $output
     ): void;
 }

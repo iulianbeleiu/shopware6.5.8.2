@@ -62,7 +62,7 @@ class OrderExporterTest extends TestCase
 
         $exporter = $this->getContainer()->get(OrderExporter::class);
 
-        $orderCount = $exporter->export(7, Context::createDefaultContext())->getTotal();
+        $orderCount = $exporter->export(7, Context::createDefaultContext())->count();
 
         static::assertEquals(3, $orderCount);
     }
@@ -79,7 +79,7 @@ class OrderExporterTest extends TestCase
 
         $exporter = $this->getContainer()->get(OrderExporter::class);
 
-        $orderCount = $exporter->export(7, Context::createDefaultContext())->getTotal();
+        $orderCount = $exporter->export(7, Context::createDefaultContext())->count();
 
         static::assertEquals(0, $orderCount);
     }
