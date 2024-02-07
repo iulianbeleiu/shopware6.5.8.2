@@ -20,7 +20,7 @@ class OrderService implements OrderServiceInterface
     {
         return $this->orderRepository->search(
             $this->createCriteria($filters),
-            Context::createDefaultContext()
+            $context
         )->getEntities();
     }
 
@@ -48,9 +48,9 @@ class OrderService implements OrderServiceInterface
             $criteria->addFilter(new EqualsFilter('deliveries.shippingOrderAddress.countryId', $filters['countryId']));
         }
 
-	    if (!empty($filters['limit'])) {
-		    $criteria->setLimit((int) $filters['limit']);
-	    }
+        if (!empty($filters['limit'])) {
+            $criteria->setLimit((int) $filters['limit']);
+        }
 
         return $criteria;
     }
