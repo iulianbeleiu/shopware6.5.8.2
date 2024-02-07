@@ -4,11 +4,12 @@ namespace Swag\Order\Service;
 
 use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Framework\Context;
+use Symfony\Component\HttpFoundation\InputBag;
 
-interface OrderExporterInterface
+interface OrderServiceInterface
 {
-    public function export(
-        int $numberOfDays,
+    public function getOrders(
+        InputBag $filters,
         Context $context
     ): OrderCollection;
 }

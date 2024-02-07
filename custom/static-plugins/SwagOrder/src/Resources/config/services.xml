@@ -7,13 +7,13 @@
     <services>
 
         <service id="Swag\Order\Command\OrderListCommand">
-            <argument type="service" id="Swag\Order\Service\OrderExporter"/>
+            <argument type="service" id="Swag\Order\Service\OrderService"/>
             <argument type="service" id="Swag\Order\Service\OrderPrinter"/>
 
             <tag name="console.command"/>
         </service>
 
-        <service id="Swag\Order\Service\OrderExporter">
+        <service id="Swag\Order\Service\OrderService">
             <argument type="service" id="order.repository"/>
         </service>
 
@@ -21,7 +21,7 @@
         </service>
 
         <service id="Swag\Order\Storefront\Controller\OrderController" public="true">
-            <argument type="service" id="order.repository"/>
+            <argument type="service" id="Swag\Order\Service\OrderService"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>

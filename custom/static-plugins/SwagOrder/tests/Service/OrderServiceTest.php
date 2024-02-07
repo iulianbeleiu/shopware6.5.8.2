@@ -21,17 +21,18 @@ use Shopware\Core\Framework\Test\TestCaseBase\SalesChannelApiTestBehaviour;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\StateMachine\Loader\InitialStateIdLoader;
 use Shopware\Core\Test\TestDefaults;
-use Swag\Order\Service\OrderExporter;
-use Swag\Order\Service\OrderExporterInterface;
+use Swag\Order\Service\OrderService;
+use Swag\Order\Service\OrderServiceInterface;
+use Symfony\Component\HttpFoundation\InputBag;
 
-class OrderExporterTest extends TestCase
+class OrderServiceTest extends TestCase
 {
     use IntegrationTestBehaviour;
     use SalesChannelApiTestBehaviour;
 
     public static function getName(): string
     {
-        return 'Test order exporter';
+        return 'Test order service';
     }
 
     /**
@@ -39,14 +40,14 @@ class OrderExporterTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->class = $this->createMock(OrderExporter::class);
+        $this->class = $this->createMock(OrderService::class);
         $this->orderRepository = $this->getContainer()->get('order.repository');
     }
 
     public function testClassStructure(): void
     {
-        static::assertInstanceOf(OrderExporterInterface::class, $this->class);
-        static::assertTrue(method_exists($this->class, 'export'));
+        static::assertInstanceOf(OrderServiceInterface::class, $this->class);
+        static::assertTrue(method_exists($this->class, 'getOrders'));
     }
 
     public function testReturnsOnlyLastSevenDaysOrders(): void
@@ -60,9 +61,11 @@ class OrderExporterTest extends TestCase
 
         $this->createOrder($customerId, $context, new \DateTimeImmutable('2024-01-30'));
 
-        $exporter = $this->getContainer()->get(OrderExporter::class);
+        $orderService = $this->getContainer()->get(OrderService::class);
 
-        $orderCount = $exporter->export(7, Context::createDefaultContext())->count();
+        $filters = new InputBag();
+        $filters->set('number-of-days', 7);
+        $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(3, $orderCount);
     }
@@ -77,9 +80,11 @@ class OrderExporterTest extends TestCase
         $this->createOrder($customerId, $context, new \DateTimeImmutable('2024-01-25'));
         $this->createOrder($customerId, $context, new \DateTimeImmutable('2023-07-30'));
 
-        $exporter = $this->getContainer()->get(OrderExporter::class);
+        $orderService = $this->getContainer()->get(OrderService::class);
 
-        $orderCount = $exporter->export(7, Context::createDefaultContext())->count();
+        $filters = new InputBag();
+        $filters->set('number-of-days', 7);
+        $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(0, $orderCount);
     }
