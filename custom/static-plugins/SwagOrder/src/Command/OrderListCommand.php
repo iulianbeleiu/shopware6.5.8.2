@@ -10,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'order:recent-orders',
@@ -31,7 +32,14 @@ class OrderListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $numberOfDays = (int) $input->getArgument('number-of-days');
+        $io = new SymfonyStyle($input, $output);
+        $numberOfDays = $io->ask('Number of days', '7', function (string $numberOfDays): int {
+            if (!is_numeric($numberOfDays)) {
+                throw new \RuntimeException('You must type a number.');
+            }
+
+            return (int) $numberOfDays;
+        });
 
         $filters = ['numberOfDays' => $numberOfDays];
         $orders = $this->orderService->getOrders($filters, Context::createDefaultContext());
