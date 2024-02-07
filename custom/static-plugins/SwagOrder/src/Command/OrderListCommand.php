@@ -26,14 +26,14 @@ class OrderListCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('number-of-days', InputArgument::REQUIRED, 'Number of days to display the order');
+        $this->addArgument('number-of-days', InputArgument::REQUIRED, 'Number of days to display the orders');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $numberOfDays = (int) $input->getArgument('number-of-days');
 
-        $filters = ['number-of-days' => $numberOfDays];
+        $filters = ['numberOfDays' => $numberOfDays];
         $orders = $this->orderService->getOrders($filters, Context::createDefaultContext());
 
         $this->orderPrinter->print($orders, $output);

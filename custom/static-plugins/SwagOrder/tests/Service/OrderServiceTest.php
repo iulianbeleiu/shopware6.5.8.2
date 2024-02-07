@@ -62,7 +62,7 @@ class OrderServiceTest extends TestCase
 
         $orderService = $this->getContainer()->get(OrderService::class);
 
-        $filters = ['number-of-days' => 7];
+        $filters = ['numberOfDays' => 7];
         $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(3, $orderCount);
@@ -80,7 +80,7 @@ class OrderServiceTest extends TestCase
 
         $orderService = $this->getContainer()->get(OrderService::class);
 
-        $filters = ['number-of-days' => 7];
+        $filters = ['numberOfDays' => 7];
         $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(0, $orderCount);

@@ -11,4 +11,8 @@ interface OrderServiceInterface
         array $filters,
         Context $context
     ): OrderCollection;
+
+    public function formatOrdersAsArray(
+        OrderCollection $orders
+    ): array;
 }

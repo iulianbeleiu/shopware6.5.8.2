@@ -23,11 +23,13 @@ class OrderController extends StorefrontController
     )]
     public function order(RequestDataBag $requestDataBag, SalesChannelContext $context): Response
     {
+        $orders = $this->orderService->getOrders(
+            $requestDataBag->all(),
+            $context->getContext()
+        );
+
         return $this->json(
-            $this->orderService->getOrders(
-                $requestDataBag->all(),
-                $context->getContext()
-            )->getElements()
+            $this->orderService->formatOrdersAsArray($orders)
         );
     }
 }

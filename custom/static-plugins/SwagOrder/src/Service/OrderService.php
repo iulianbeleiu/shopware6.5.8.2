@@ -7,6 +7,7 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 
 class OrderService implements OrderServiceInterface
@@ -27,8 +28,12 @@ class OrderService implements OrderServiceInterface
     {
         $criteria = new Criteria();
 
-        if (!empty($filters['number-of-days'])) {
-            $dateTimeFormat = (new \DateTimeImmutable(sprintf('-%s days', $filters['number-of-days'])))
+        $criteria->addAssociation('lineItems');
+        $criteria->addAssociation('salesChannel');
+        $criteria->addAssociation('transactions.stateMachineState');
+
+        if (!empty($filters['numberOfDays'])) {
+            $dateTimeFormat = (new \DateTimeImmutable(sprintf('-%s days', $filters['numberOfDays'])))
                 ->format(Defaults::STORAGE_DATE_TIME_FORMAT);
 
             $criteria->addFilter(new RangeFilter(
@@ -43,8 +48,31 @@ class OrderService implements OrderServiceInterface
             $criteria->setLimit((int) $filters['limit']);
         }
 
-        //		$criteria->addFields(['orderNumber']);
+        if (!empty($filters['countryId'])) {
+            $criteria->addFilter(new EqualsFilter('deliveries.shippingOrderAddress.countryId', $filters['countryId']));
+        }
 
         return $criteria;
+    }
+
+    public function formatOrdersAsArray(OrderCollection $orders): array
+    {
+        $ordersArray = [];
+        foreach ($orders as $order) {
+            $orderDate = $order->getOrderDateTime()->format('Y-m-d H:i:s');
+            $customerName = sprintf('%s %s', $order->getOrderCustomer()->getFirstName(), $order->getOrderCustomer()->getLastName());
+
+            $ordersArray[] = [
+                'orderNumber' => $order->getOrderNumber(),
+                'orderDate' => $orderDate,
+                'customerName' => $customerName,
+                'totalAmount' => $order->getAmountTotal(),
+                'lineItemsCount' => $order->getLineItems()->count(),
+                'salesChannel' => $order->getSalesChannel()->getName(),
+                'paymentStatus' => $order->getTransactions()->last()->getStateMachineState()->getName(),
+            ];
+        }
+
+        return $ordersArray;
     }
 }
