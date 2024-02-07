@@ -21,7 +21,7 @@ class OrderController extends StorefrontController
         name: 'frontend.order.list',
         methods: ['GET']
     )]
-    public function order(RequestDataBag $requestDataBag, SalesChannelContext $context): Response
+    public function orderList(RequestDataBag $requestDataBag, SalesChannelContext $context): Response
     {
         $orders = $this->orderService->getOrders(
             $requestDataBag->all(),
