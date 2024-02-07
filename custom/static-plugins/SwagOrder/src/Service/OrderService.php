@@ -44,13 +44,13 @@ class OrderService implements OrderServiceInterface
             ));
         }
 
-        if (!empty($filters['limit'])) {
-            $criteria->setLimit((int) $filters['limit']);
-        }
-
         if (!empty($filters['countryId'])) {
             $criteria->addFilter(new EqualsFilter('deliveries.shippingOrderAddress.countryId', $filters['countryId']));
         }
+
+	    if (!empty($filters['limit'])) {
+		    $criteria->setLimit((int) $filters['limit']);
+	    }
 
         return $criteria;
     }
