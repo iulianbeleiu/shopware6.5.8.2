@@ -8,7 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 interface OrderExporterInterface
 {
     public function export(
-	    int $numberOfDays,
+        int $numberOfDays,
         Context $context
     ): EntitySearchResult;
 }

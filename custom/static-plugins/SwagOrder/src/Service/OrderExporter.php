@@ -10,22 +10,20 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 
 class OrderExporter implements OrderExporterInterface
 {
+    public function __construct(private readonly EntityRepository $orderRepository)
+    {
+    }
 
-	public function __construct(private readonly EntityRepository $orderRepository)
-	{
-	}
+    public function export(int $numberOfDays, Context $context): EntitySearchResult
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(new RangeFilter(
+            'orderDateTime',
+            [
+                RangeFilter::GTE => (new \DateTime(sprintf('-%s days', $numberOfDays)))->format(\DateTimeInterface::ATOM),
+            ]
+        ));
 
-
-	public function export(int $numberOfDays, Context $context): EntitySearchResult
-	{
-		$criteria = new Criteria();
-		$criteria->addFilter(new RangeFilter(
-			'orderDateTime',
-			[
-				RangeFilter::GTE => (new \DateTime(sprintf('-%s days', $numberOfDays)))->format(\DateTimeInterface::ATOM),
-			]
-		));
-
-		return $this->orderRepository->search($criteria, Context::createDefaultContext());
-	}
+        return $this->orderRepository->search($criteria, Context::createDefaultContext());
+    }
 }

@@ -2,13 +2,10 @@
 
 namespace Swag\Order\Command;
 
-use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Swag\Order\Service\OrderExporterInterface;
+use Swag\Order\Service\OrderPrinterInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,7 +14,8 @@ class OrderListCommand extends Command
     protected static $defaultName = 'order:recent-orders';
 
     public function __construct(
-        private readonly OrderExporterInterface $orderExporter
+        private readonly OrderExporterInterface $orderExporter,
+        private readonly OrderPrinterInterface $orderPrinter
     ) {
         parent::__construct();
     }
@@ -31,19 +29,7 @@ class OrderListCommand extends Command
     {
         $orders = $this->orderExporter->export(7, Context::createDefaultContext());
 
-        $table = new Table($output);
-        $table->setHeaders(['Order Number', 'Order Date', 'Customer', 'Total']);
-
-        /** @var OrderEntity $order */
-        foreach ($orders as $order) {
-            $orderNumber = $order->getOrderNumber();
-            $orderDate = $order->getOrderDateTime()->format('Y-m-d H:i:s');
-
-            $customerName = sprintf('%s %s', $order->getOrderCustomer()->getFirstName(), $order->getOrderCustomer()->getLastName());
-            $table->addRow([$orderNumber, $orderDate, $customerName, $order->getAmountTotal()]);
-        }
-
-        $table->render();
+        $this->orderPrinter->print($orders, $output);
 
         return Command::SUCCESS;
     }

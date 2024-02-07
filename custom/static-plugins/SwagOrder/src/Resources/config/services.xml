@@ -8,12 +8,16 @@
 
         <service id="Swag\Order\Command\OrderListCommand">
             <argument type="service" id="Swag\Order\Service\OrderExporter"/>
+            <argument type="service" id="Swag\Order\Service\OrderPrinter"/>
 
             <tag name="console.command"/>
         </service>
 
         <service id="Swag\Order\Service\OrderExporter">
             <argument type="service" id="order.repository"/>
+        </service>
+
+        <service id="Swag\Order\Service\OrderPrinter">
         </service>
 
         <service id="Swag\Order\Storefront\Controller\ExampleController" public="true">
