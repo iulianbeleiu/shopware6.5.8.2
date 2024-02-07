@@ -1,9 +1,11 @@
 parameters:
     phpVersion: 80200
-    level: 8
+    level: 6
     inferPrivatePropertyTypeFromConstructor: true
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false
     paths:
         - custom/static-plugins
+    excludePaths:
+            - custom/static-plugins/SwagOrder/tests

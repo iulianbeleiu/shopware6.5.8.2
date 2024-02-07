@@ -6,7 +6,9 @@
 
     <services>
 
-        <service id="Swag\Order\Command\ExampleCommand">
+        <service id="Swag\Order\Command\OrderListCommand">
+            <argument type="service" id="order.repository"/>
+
             <tag name="console.command"/>
         </service>
 
