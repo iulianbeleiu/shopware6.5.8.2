@@ -9,17 +9,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OrderPrinter implements OrderPrinterInterface
 {
+    private static array $TABLE_HEADER = ['Order Number', 'Order Date', 'Customer', 'Total'];
+
     public function print(EntitySearchResult $orders, OutputInterface $output): void
     {
         $table = new Table($output);
-        $table->setHeaders(['Order Number', 'Order Date', 'Customer', 'Total']);
+        $table->setHeaders(self::$TABLE_HEADER);
 
         /** @var OrderEntity $order */
         foreach ($orders as $order) {
             $orderNumber = $order->getOrderNumber();
             $orderDate = $order->getOrderDateTime()->format('Y-m-d H:i:s');
-
             $customerName = sprintf('%s %s', $order->getOrderCustomer()->getFirstName(), $order->getOrderCustomer()->getLastName());
+
             $table->addRow([$orderNumber, $orderDate, $customerName, $order->getAmountTotal()]);
         }
 
