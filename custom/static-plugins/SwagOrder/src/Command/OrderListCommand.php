@@ -4,9 +4,9 @@ namespace Swag\Order\Command;
 
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Swag\Order\Service\OrderExporterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ class OrderListCommand extends Command
     protected static $defaultName = 'order:recent-orders';
 
     public function __construct(
-        private readonly EntityRepository $orderRepository
+        private readonly OrderExporterInterface $orderExporter
     ) {
         parent::__construct();
     }
@@ -29,15 +29,7 @@ class OrderListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $criteria = new Criteria();
-        $criteria->addFilter(new RangeFilter(
-            'orderDateTime',
-            [
-                RangeFilter::GTE => (new \DateTime('-7 days'))->format(\DateTimeInterface::ATOM),
-            ]
-        ));
-
-        $orders = $this->orderRepository->search($criteria, Context::createDefaultContext());
+        $orders = $this->orderExporter->export(7, Context::createDefaultContext());
 
         $table = new Table($output);
         $table->setHeaders(['Order Number', 'Order Date', 'Customer', 'Total']);
