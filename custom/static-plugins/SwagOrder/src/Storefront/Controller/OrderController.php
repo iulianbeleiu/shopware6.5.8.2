@@ -2,10 +2,10 @@
 
 namespace Swag\Order\Storefront\Controller;
 
+use Shopware\Core\Framework\Validation\DataBag\RequestDataBag;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Swag\Order\Service\OrderServiceInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,11 +21,11 @@ class OrderController extends StorefrontController
         name: 'frontend.order.list',
         methods: ['GET']
     )]
-    public function order(Request $request, SalesChannelContext $context): Response
+    public function order(RequestDataBag $requestDataBag, SalesChannelContext $context): Response
     {
         return $this->json(
             $this->orderService->getOrders(
-                $request->getPayload(),
+                $requestDataBag->all(),
                 $context->getContext()
             )->getElements()
         );

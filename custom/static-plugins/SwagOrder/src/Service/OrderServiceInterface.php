@@ -4,12 +4,11 @@ namespace Swag\Order\Service;
 
 use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Framework\Context;
-use Symfony\Component\HttpFoundation\InputBag;
 
 interface OrderServiceInterface
 {
     public function getOrders(
-        InputBag $filters,
+        array $filters,
         Context $context
     ): OrderCollection;
 }

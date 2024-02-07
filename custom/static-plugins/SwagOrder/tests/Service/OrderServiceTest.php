@@ -23,7 +23,6 @@ use Shopware\Core\System\StateMachine\Loader\InitialStateIdLoader;
 use Shopware\Core\Test\TestDefaults;
 use Swag\Order\Service\OrderService;
 use Swag\Order\Service\OrderServiceInterface;
-use Symfony\Component\HttpFoundation\InputBag;
 
 class OrderServiceTest extends TestCase
 {
@@ -63,8 +62,7 @@ class OrderServiceTest extends TestCase
 
         $orderService = $this->getContainer()->get(OrderService::class);
 
-        $filters = new InputBag();
-        $filters->set('number-of-days', 7);
+        $filters = ['number-of-days' => 7];
         $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(3, $orderCount);
@@ -82,8 +80,7 @@ class OrderServiceTest extends TestCase
 
         $orderService = $this->getContainer()->get(OrderService::class);
 
-        $filters = new InputBag();
-        $filters->set('number-of-days', 7);
+        $filters = ['number-of-days' => 7];
         $orderCount = $orderService->getOrders($filters, Context::createDefaultContext())->count();
 
         static::assertEquals(0, $orderCount);

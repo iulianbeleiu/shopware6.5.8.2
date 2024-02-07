@@ -10,7 +10,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpFoundation\InputBag;
 
 #[AsCommand(
     name: 'order:recent-orders',
@@ -34,9 +33,7 @@ class OrderListCommand extends Command
     {
         $numberOfDays = (int) $input->getArgument('number-of-days');
 
-        $filters = new InputBag();
-        $filters->set('number-of-days', $numberOfDays);
-
+        $filters = ['number-of-days' => $numberOfDays];
         $orders = $this->orderService->getOrders($filters, Context::createDefaultContext());
 
         $this->orderPrinter->print($orders, $output);
